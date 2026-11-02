@@ -50,13 +50,13 @@ export function HeroPlot() {
     <svg viewBox="0 0 460 340" className="hero-plot" role="img" aria-label="Area under a curve approximated by trapezoids">
       <defs>
         <linearGradient id="fillGrad" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#4ade80" stopOpacity="0.5" />
-          <stop offset="100%" stopColor="#4ade80" stopOpacity="0.04" />
+          <stop offset="0%" stopColor="#16a34a" stopOpacity="0.28" />
+          <stop offset="100%" stopColor="#16a34a" stopOpacity="0.03" />
         </linearGradient>
       </defs>
 
       {/* grid */}
-      <g stroke="rgba(255,255,255,0.06)" strokeWidth="1">
+      <g stroke="rgba(2,6,23,0.08)" strokeWidth="1">
         {[0, 1, 2, 3, 4, 5].map((i) => (
           <line key={`v${i}`} x1={60 + i * 68} y1="30" x2={60 + i * 68} y2={base} />
         ))}
@@ -67,24 +67,47 @@ export function HeroPlot() {
 
       {/* trapezoid strips */}
       {strips.map((d, i) => (
-        <path key={i} d={d} fill="url(#fillGrad)" stroke="#4ade80" strokeOpacity="0.35" strokeWidth="1" />
+        <path
+          key={i}
+          className="plot-strip"
+          style={{ animationDelay: `${0.35 + i * 0.12}s` }}
+          d={d}
+          fill="url(#fillGrad)"
+          stroke="#16a34a"
+          strokeOpacity="0.35"
+          strokeWidth="1"
+        />
       ))}
 
-      {/* approximation (straight tops) */}
-      <path d={curve} fill="none" stroke="#4ade80" strokeWidth="2.5" strokeLinejoin="round" />
+      {/* approximation (straight tops), drawn in */}
+      <path
+        className="plot-curve"
+        pathLength={1}
+        d={curve}
+        fill="none"
+        stroke="#16a34a"
+        strokeWidth="2.5"
+        strokeLinejoin="round"
+        strokeLinecap="round"
+      />
 
       {/* sample points */}
       {pts.map(([x, y], i) => (
-        <circle key={i} cx={x} cy={y} r="4" fill="#07140d" stroke="#4ade80" strokeWidth="2" />
+        <circle
+          key={i}
+          className="plot-pt"
+          style={{ animationDelay: `${1.1 + i * 0.1}s` }}
+          cx={x}
+          cy={y}
+          r="4"
+          fill="#ffffff"
+          stroke="#16a34a"
+          strokeWidth="2"
+        />
       ))}
 
       {/* axes */}
-      <path d={`M60 30 V${base} H410`} fill="none" stroke="rgba(255,255,255,0.25)" strokeWidth="1.5" />
-
-      {/* annotation */}
-      <text x="150" y="250" fontFamily="'JetBrains Mono', monospace" fontSize="26" fill="#4ade80" opacity="0.9">
-        ∫ f(x) dx
-      </text>
+      <path d={`M60 30 V${base} H410`} fill="none" stroke="rgba(2,6,23,0.3)" strokeWidth="1.5" />
     </svg>
   );
 }

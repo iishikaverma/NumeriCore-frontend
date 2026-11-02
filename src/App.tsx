@@ -89,10 +89,7 @@ export default function App() {
       <header className="hero" id="top">
         <div className="container hero-grid">
           <div className="hero-copy">
-            <span className="badge">
-              <span className="dot" />
-              Interactive Numerical Integration
-            </span>
+            <span className="kicker">// trapezoidal · midpoint · simpson</span>
             <h1>
               Integration you can <span className="grad">actually see.</span>
             </h1>
@@ -108,8 +105,17 @@ export default function App() {
                 How it works
               </a>
             </div>
+            <div className="tech-row">
+              <span>React</span>
+              <span>TypeScript</span>
+              <span>C++ engine</span>
+            </div>
           </div>
           <div className="hero-visual">
+            <div className="plot-chip">
+              <span className="chip-label">∫₀⁴ x² dx</span>
+              <span className="chip-value">≈ 21.3333</span>
+            </div>
             <HeroPlot />
           </div>
         </div>

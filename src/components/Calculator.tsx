@@ -80,20 +80,31 @@ export default function Calculator() {
   const data = res?.success ? res.data : null;
   const best = new Set(data?.most_accurate_methods ?? []);
 
+  const xCount = parseNums(form.xValues).length;
+  const yCount = parseNums(form.yValues).length;
+  const mCount = parseNums(form.midpointValues).length;
+
   return (
     <div className="calc-grid">
       <form className="card calc-card" onSubmit={onSubmit}>
-        <div className="field-row">
-          <label className="field">
-            Operation
-            <select
-              value={form.operation}
-              onChange={(e) => set('operation', e.target.value as Operation)}
-            >
-              <option value="calculate_area">calculate_area</option>
-              <option value="calculate_volume">calculate_volume</option>
-            </select>
-          </label>
+        <div className="field">
+          <span className="field-label">Operation</span>
+          <div className="segmented" role="group" aria-label="Operation">
+            {(['calculate_area', 'calculate_volume'] as Operation[]).map((op) => (
+              <button
+                key={op}
+                type="button"
+                className={'seg' + (form.operation === op ? ' active' : '')}
+                aria-pressed={form.operation === op}
+                onClick={() => set('operation', op)}
+              >
+                {op === 'calculate_area' ? 'Area' : 'Volume'}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="field-row two">
           <label className="field">
             Start
             <input value={form.start} onChange={(e) => set('start', e.target.value)} inputMode="decimal" />
@@ -105,22 +116,30 @@ export default function Calculator() {
         </div>
 
         <label className="field">
-          x values <span className="hint">comma-separated</span>
+          <span className="field-label-row">
+            x values <span className="hint">{xCount} value{xCount === 1 ? '' : 's'}</span>
+          </span>
           <input value={form.xValues} onChange={(e) => set('xValues', e.target.value)} />
         </label>
         <label className="field">
-          y values <span className="hint">comma-separated</span>
+          <span className="field-label-row">
+            y values <span className="hint">{yCount} value{yCount === 1 ? '' : 's'}</span>
+          </span>
           <input value={form.yValues} onChange={(e) => set('yValues', e.target.value)} />
         </label>
         <label className="field">
-          Midpoint values <span className="hint">one per interval</span>
+          <span className="field-label-row">
+            Midpoint values <span className="hint">{mCount} value{mCount === 1 ? '' : 's'} · one per interval</span>
+          </span>
           <input
             value={form.midpointValues}
             onChange={(e) => set('midpointValues', e.target.value)}
           />
         </label>
         <label className="field">
-          {actualLabel} <span className="hint">optional reference</span>
+          <span className="field-label-row">
+            {actualLabel} <span className="hint">optional reference</span>
+          </span>
           <input value={form.actual} onChange={(e) => set('actual', e.target.value)} inputMode="decimal" />
         </label>
 
