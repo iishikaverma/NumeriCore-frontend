@@ -63,7 +63,8 @@ export default function Calculator() {
     }
 
     try {
-      const r = await fetch('/api/calculate', {
+      const base = import.meta.env.VITE_API_BASE ?? '';
+      const r = await fetch(`${base}/api/calculate`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
