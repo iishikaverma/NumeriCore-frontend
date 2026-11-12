@@ -97,7 +97,11 @@ export default function Calculator() {
                 type="button"
                 className={'seg' + (form.operation === op ? ' active' : '')}
                 aria-pressed={form.operation === op}
-                onClick={() => set('operation', op)}
+                onClick={() => {
+                  set('operation', op);
+                  setRes(null);
+                  setNetError(null);
+                }}
               >
                 {op === 'calculate_area' ? 'Area' : 'Volume'}
               </button>
